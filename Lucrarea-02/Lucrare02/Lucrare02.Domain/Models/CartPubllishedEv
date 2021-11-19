@@ -1,0 +1,38 @@
+using CSharp.Choices;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lucrare02.Domain.Models
+{
+    [AsChoice]
+    public static partial class CartPublishedEvent
+    {
+
+        public interface ICartPublishedEvent { }
+
+        public record CartPublishedEvent : ICartPublishedEvent
+        {
+            public string Cvs{ get;}
+            public DateTime PublishedDate { get;}
+
+            internal CartPublishedSuccededEvent(string cvs, DateTime publishedDate)
+            {
+                Cvs = cvs;
+                PublishedDate = publishedDate;
+            }
+
+            public record CartPublishedFailedEvent : ICartPublishedEvent
+            {
+                public string Reason { get; }
+
+                internal CartPublishedFailedEvent(string reason)
+                {
+                    Reason = reason;
+                }
+            }
+        }
+    };
+}
